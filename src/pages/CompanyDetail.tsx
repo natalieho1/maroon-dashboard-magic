@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Search, Edit, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import SearchBar from '@/components/SearchBar';
 
 interface Email {
@@ -18,7 +17,6 @@ interface Email {
 
 const CompanyDetail = () => {
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState('overview');
   const [searchEmailsQuery, setSearchEmailsQuery] = useState('');
 
   // Mock company data - in a real app, you'd fetch this based on the ID
@@ -110,109 +108,53 @@ const CompanyDetail = () => {
             </div>
           </header>
 
-          {/* Tabs Navigation */}
-          <div className="border-b border-white/10 animate-fade-in">
-            <Tabs defaultValue="emails" className="w-full" onValueChange={setActiveTab}>
-              <TabsList className="bg-transparent border-b border-white/10">
-                <TabsTrigger 
-                  value="overview" 
-                  className="text-white/70 data-[state=active]:text-white data-[state=active]:border-b-2 data-[state=active]:border-white rounded-none bg-transparent hover:bg-transparent data-[state=active]:bg-transparent"
-                >
-                  Overview
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="emails" 
-                  className="text-white/70 data-[state=active]:text-white data-[state=active]:border-b-2 data-[state=active]:border-white rounded-none bg-transparent hover:bg-transparent data-[state=active]:bg-transparent"
-                >
-                  Emails
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="connections" 
-                  className="text-white/70 data-[state=active]:text-white data-[state=active]:border-b-2 data-[state=active]:border-white rounded-none bg-transparent hover:bg-transparent data-[state=active]:bg-transparent"
-                >
-                  Connections
-                </TabsTrigger>
-              </TabsList>
+          {/* Emails Section */}
+          <div className="animate-fade-in mt-4">
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex space-x-4">
+                <button className="px-4 py-2 text-white border-b-2 border-white text-sm font-medium">
+                  External Communications
+                </button>
+                <button className="px-4 py-2 text-white/60 hover:text-white border-b-2 border-transparent hover:border-white/30 text-sm font-medium transition-colors">
+                  Internal Discussions
+                </button>
+                <button className="px-4 py-2 text-white/60 hover:text-white border-b-2 border-transparent hover:border-white/30 text-sm font-medium transition-colors">
+                  All Emails
+                </button>
+              </div>
+              <SearchBar 
+                placeholder="Search emails..." 
+                onChange={(e) => setSearchEmailsQuery(e.target.value)} 
+              />
+            </div>
 
-              <TabsContent value="overview" className="p-0 mt-6">
-                <div className="glass-effect p-6 rounded-lg animate-fade-up">
-                  <h2 className="text-xl font-semibold text-white mb-4">Company Overview</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <p className="text-white/70 mb-1">Industry</p>
-                      <p className="text-white font-medium">{company.industry || "—"}</p>
-                    </div>
-                    <div>
-                      <p className="text-white/70 mb-1">Stage</p>
-                      <p className="text-white font-medium">{company.stage || "—"}</p>
-                    </div>
-                    <div>
-                      <p className="text-white/70 mb-1">Funding</p>
-                      <p className={`text-white font-medium color-${company.funding}`}>{company.funding || "—"}</p>
-                    </div>
-                    <div>
-                      <p className="text-white/70 mb-1">Investors</p>
-                      <p className={`text-white font-medium color-${company.investors}`}>{company.investors || "—"}</p>
+            <div className="space-y-4 animate-fade-up">
+              {filteredEmails.map((email) => (
+                <div key={email.id} className="glass-effect rounded-lg p-4 hover:bg-white/15 transition-colors cursor-pointer">
+                  <div className="flex justify-between items-start">
+                    <h3 className="font-medium text-white">{email.subject}</h3>
+                    <div className="flex items-center bg-blue-500/10 px-2 py-1 rounded text-xs">
+                      <span className="text-blue-400 mr-1">Mentioned</span>
+                      <span className="text-blue-300 font-medium">{email.mentioned}%</span>
                     </div>
                   </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="emails" className="p-0 mt-6">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex space-x-4">
-                    <button className="px-4 py-2 text-white border-b-2 border-white text-sm font-medium">
-                      External Communications
-                    </button>
-                    <button className="px-4 py-2 text-white/60 hover:text-white border-b-2 border-transparent hover:border-white/30 text-sm font-medium transition-colors">
-                      Internal Discussions
-                    </button>
-                    <button className="px-4 py-2 text-white/60 hover:text-white border-b-2 border-transparent hover:border-white/30 text-sm font-medium transition-colors">
-                      All Emails
-                    </button>
+                  <div className="mt-2 flex items-center text-sm text-white/70">
+                    <span className="mr-1">From:</span>
+                    <span className="bg-purple-400/20 text-purple-300 px-2 py-0.5 rounded mr-2">{email.from}</span>
                   </div>
-                  <SearchBar 
-                    placeholder="Search emails..." 
-                    onChange={(e) => setSearchEmailsQuery(e.target.value)} 
-                  />
-                </div>
-
-                <div className="space-y-4 animate-fade-up">
-                  {filteredEmails.map((email) => (
-                    <div key={email.id} className="glass-effect rounded-lg p-4 hover:bg-white/15 transition-colors cursor-pointer">
-                      <div className="flex justify-between items-start">
-                        <h3 className="font-medium text-white">{email.subject}</h3>
-                        <div className="flex items-center bg-blue-500/10 px-2 py-1 rounded text-xs">
-                          <span className="text-blue-400 mr-1">Mentioned</span>
-                          <span className="text-blue-300 font-medium">{email.mentioned}%</span>
-                        </div>
-                      </div>
-                      <div className="mt-2 flex items-center text-sm text-white/70">
-                        <span className="mr-1">From:</span>
-                        <span className="bg-purple-400/20 text-purple-300 px-2 py-0.5 rounded mr-2">{email.from}</span>
-                      </div>
-                      {email.to && (
-                        <div className="mt-1 flex items-center text-sm text-white/70">
-                          <span className="mr-1">To:</span>
-                          <span className="bg-purple-400/20 text-purple-300 px-2 py-0.5 rounded">{email.to}</span>
-                        </div>
-                      )}
-                      <div className="mt-1 text-sm text-white/70">
-                        <span className="mr-2">{email.date}</span>
-                      </div>
-                      <p className="mt-3 text-white/90">{email.content}</p>
+                  {email.to && (
+                    <div className="mt-1 flex items-center text-sm text-white/70">
+                      <span className="mr-1">To:</span>
+                      <span className="bg-purple-400/20 text-purple-300 px-2 py-0.5 rounded">{email.to}</span>
                     </div>
-                  ))}
+                  )}
+                  <div className="mt-1 text-sm text-white/70">
+                    <span className="mr-2">{email.date}</span>
+                  </div>
+                  <p className="mt-3 text-white/90">{email.content}</p>
                 </div>
-              </TabsContent>
-
-              <TabsContent value="connections" className="p-0 mt-6">
-                <div className="glass-effect p-6 rounded-lg animate-fade-up">
-                  <h2 className="text-xl font-semibold text-white mb-4">Connections</h2>
-                  <p className="text-white/70">No connections available.</p>
-                </div>
-              </TabsContent>
-            </Tabs>
+              ))}
+            </div>
           </div>
         </div>
       </div>
