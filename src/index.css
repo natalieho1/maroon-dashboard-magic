@@ -1,11 +1,15 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 345 50% 20%;
+    --foreground: 0 0% 100%;
+
+    --maroon: 345 50% 20%;
+    --maroon-foreground: 0 0% 100%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -22,8 +26,8 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 345 50% 15%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -35,19 +39,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -96,6 +93,82 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
+}
+
+.glass-effect {
+  @apply bg-white/10 backdrop-blur-sm border border-white/20;
+}
+
+.table-header {
+  @apply text-white/80 uppercase text-xs font-medium tracking-wider text-left px-3 py-3.5;
+}
+
+.table-data {
+  @apply text-white px-3 py-4 text-sm;
+}
+
+.number-cell {
+  @apply text-center font-medium;
+}
+
+.color-0 {
+  @apply text-emerald-400;
+}
+
+.color-1 {
+  @apply text-violet-400;
+}
+
+.color-3 {
+  @apply text-yellow-400;
+}
+
+.color-4 {
+  @apply text-orange-400;
+}
+
+.color-5 {
+  @apply text-sky-400;
+}
+
+.color-7 {
+  @apply text-blue-400;
+}
+
+.color-9 {
+  @apply text-green-400;
+}
+
+.color-11 {
+  @apply text-lime-400;
+}
+
+.color-19 {
+  @apply text-indigo-400;
+}
+
+.color-20 {
+  @apply text-emerald-400;
+}
+
+.color-28 {
+  @apply text-blue-400;
+}
+
+.color-30 {
+  @apply text-sky-400;
+}
+
+.color-31 {
+  @apply text-indigo-400;
+}
+
+.color-32 {
+  @apply text-emerald-400;
+}
+
+.color-65 {
+  @apply text-violet-400;
 }
