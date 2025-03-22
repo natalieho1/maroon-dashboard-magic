@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export interface Company {
   id: string;
@@ -58,7 +59,12 @@ const CompanyTable = ({ companies }: CompanyTableProps) => {
                     <span className="font-bold w-8 h-8 rounded-md bg-white/10 flex items-center justify-center">
                       {company.abbreviation}
                     </span>
-                    <span className="font-medium">{company.name}</span>
+                    <Link 
+                      to={`/company/${company.id}`}
+                      className="font-medium text-white hover:text-white/80 transition-colors"
+                    >
+                      {company.name}
+                    </Link>
                   </div>
                   <a href={`https://${company.website}`} target="_blank" rel="noopener noreferrer" className="text-xs text-white/60 hover:text-white transition-colors ml-10">
                     {company.website}
@@ -75,10 +81,13 @@ const CompanyTable = ({ companies }: CompanyTableProps) => {
               <td className={`table-data number-cell color-${company.recommended}`}>{company.recommended}</td>
               <td className={`table-data number-cell color-${company.mentioned}`}>{company.mentioned}</td>
               <td className="table-data text-right">
-                <button className="inline-flex items-center justify-center h-8 px-4 rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200 text-white text-sm">
+                <Link 
+                  to={`/company/${company.id}`}
+                  className="inline-flex items-center justify-center h-8 px-4 rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200 text-white text-sm"
+                >
                   <Eye className="h-4 w-4 mr-1" />
                   View
-                </button>
+                </Link>
               </td>
             </tr>
           ))}
