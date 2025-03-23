@@ -7,67 +7,43 @@ import CompanyTable, { Company } from './CompanyTable';
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   
-  // Sample company data
+  // Sample company data with new fields
   const companies: Company[] = [
     {
       id: '1',
       abbreviation: 'DO',
       name: 'Docdraft',
       website: 'docdraft.ai',
-      industry: '',
-      stage: '',
-      funding: 65,
-      investors: 0,
-      introduced: 32,
-      accepted: 0,
-      requested: 3,
-      recommended: 30,
-      mentioned: 0
+      connect: 5,
+      references: 8,
+      followUp: 3
     },
     {
       id: '2',
       abbreviation: 'PA',
       name: 'Payman',
       website: 'paymanai.com',
-      industry: '',
-      stage: '',
-      funding: 28,
-      investors: 0,
-      introduced: 20,
-      accepted: 0,
-      requested: 0,
-      recommended: 5,
-      mentioned: 3
+      connect: 2,
+      references: 4,
+      followUp: 1
     },
     {
       id: '3',
       abbreviation: 'OL',
       name: 'Olive',
       website: 'oliveltd.com',
-      industry: '',
-      stage: '',
-      funding: 31,
-      investors: 0,
-      introduced: 9,
-      accepted: 0,
-      requested: 1,
-      recommended: 5,
-      mentioned: 4
+      connect: 7,
+      references: 3,
+      followUp: 5
     },
     {
       id: '4',
       abbreviation: 'BA',
       name: 'Basil Systems',
       website: 'basilsys.com',
-      industry: '',
-      stage: '',
-      funding: 19,
-      investors: 0,
-      introduced: 11,
-      accepted: 0,
-      requested: 0,
-      recommended: 7,
-      mentioned: 1
+      connect: 1,
+      references: 9,
+      followUp: 4
     }
   ];
 
